@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun ContactScreen(navController: NavController) {
+fun ContactScreen(navController: NavController, navControllerGlobal: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

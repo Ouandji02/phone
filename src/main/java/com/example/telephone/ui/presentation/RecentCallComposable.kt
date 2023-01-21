@@ -19,9 +19,10 @@ import com.example.telephone.ui.presentation.Model.NavigationScreen
 import com.example.telephone.ui.presentation.composables.BottomNavigationComposable
 
 @Composable
-fun RecentCallComposable(navController: NavHostController) {
+fun RecentCallComposable(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
-    val backstack by navController.currentBackStackEntryAsState()
+    val navControllerBottom = rememberNavController()
+    val backstack by navControllerBottom.currentBackStackEntryAsState()
     val verificationRoute = backstack?.destination?.route == BottomBarScreen.Home.route
     println(backstack?.destination?.route)
     Scaffold(
@@ -79,9 +80,9 @@ fun RecentCallComposable(navController: NavHostController) {
             }
         },
         bottomBar = {
-            BottomNavigationComposable(navController)
+            BottomNavigationComposable(navControllerBottom)
         }
     ) {
-        BottomGraph(navController)
+        BottomGraph(navControllerBottom, navController)
     }
 }

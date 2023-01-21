@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.example.telephone.ui.presentation.Model.NavigationScreen
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController,navControllerGlobal: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -31,7 +31,7 @@ fun HomeScreen(navController: NavController) {
         )
         LazyColumn {
             items(10) {
-                TextButton(onClick = { navController.navigate(NavigationScreen.Details.route) }) {
+                TextButton(onClick = { navControllerGlobal.navigate(NavigationScreen.Details.route) }) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
