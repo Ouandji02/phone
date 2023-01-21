@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.telephone.ui.Routes.BottomGraph
+import com.example.telephone.ui.Routes.GlobalNavigation
 import com.example.telephone.ui.presentation.RecentCallComposable
 import com.example.telephone.ui.theme.TelephoneTheme
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                  RecentCallComposable()
+                  GlobalNavigation()
                 }
             }
         }

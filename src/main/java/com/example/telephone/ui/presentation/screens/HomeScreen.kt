@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.CallMade
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,13 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.telephone.ui.presentation.Model.NavigationScreen
 
 @Composable
 fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(bottom = 50.dp)
     ) {
         Text(
             text = "Recents",
@@ -30,6 +31,7 @@ fun HomeScreen(navController: NavController) {
         )
         LazyColumn {
             items(10) {
+                TextButton(onClick = { navController.navigate(NavigationScreen.Details.route) }) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -43,13 +45,10 @@ fun HomeScreen(navController: NavController) {
                                     .padding(end = 30.dp)
                                     .height(40.dp)
                                     .width(40.dp)
-                                    .clip(
-                                        CircleShape
-                                    ),
-                                color = Color.Blue,
-                                elevation = 3.dp
+                                    .clip(CircleShape),
+                                color = Color.Blue.copy(.3f),
 
-                            ) {
+                                ) {
                                 Column(
                                     modifier = Modifier.fillMaxSize(),
                                     verticalArrangement = Arrangement.Center,
@@ -65,11 +64,14 @@ fun HomeScreen(navController: NavController) {
                                 Text(text = "848484884")
                                 Row(verticalAlignment = Alignment.Bottom) {
                                     Icon(
-                                        imageVector = Icons.Default.Call,
+                                        imageVector = Icons.Default.CallMade,
                                         contentDescription = "icons",
                                         tint = Color.LightGray
                                     )
-                                    Text(text = "Mobile", style = MaterialTheme.typography.subtitle2)
+                                    Text(
+                                        text = "Mobile",
+                                        style = MaterialTheme.typography.subtitle2
+                                    )
                                 }
 
                             }
@@ -87,6 +89,7 @@ fun HomeScreen(navController: NavController) {
                             )
                         }
                     }
+                }
 
             }
         }

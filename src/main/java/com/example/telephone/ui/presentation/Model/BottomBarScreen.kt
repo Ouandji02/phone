@@ -1,6 +1,7 @@
 package com.example.telephone.ui.presentation.Model
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccessAlarm
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -11,9 +12,9 @@ sealed class BottomBarScreen(
     val icon : ImageVector
 ) {
     object Home : BottomBarScreen(
-        route = "home",
+        route = "recent",
         title = "Recents",
-        icon = Icons.Outlined.LocationOn
+        icon = Icons.Outlined.AccessAlarm
     )
     object Contact : BottomBarScreen(
         route = "contact",
