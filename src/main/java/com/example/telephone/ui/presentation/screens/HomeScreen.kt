@@ -1,9 +1,13 @@
 package com.example.telephone.ui.presentation.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CallMade
 import androidx.compose.material.icons.filled.Info
@@ -18,7 +22,7 @@ import androidx.navigation.NavController
 import com.example.telephone.ui.presentation.Model.NavigationScreen
 
 @Composable
-fun HomeScreen(navController: NavController,navControllerGlobal: NavController) {
+fun HomeScreen(navController: NavController, navControllerGlobal: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -26,71 +30,76 @@ fun HomeScreen(navController: NavController,navControllerGlobal: NavController) 
     ) {
         Text(
             text = "Recents",
-            style = MaterialTheme.typography.h2.copy(fontSize = 30.sp),
+            style = MaterialTheme.typography.h4.copy(fontSize = 30.sp),
             modifier = Modifier.padding(bottom = 0.dp, start = 15.dp)
         )
         LazyColumn {
             items(10) {
-                TextButton(onClick = { navControllerGlobal.navigate(NavigationScreen.Details.route) }) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            navControllerGlobal.navigate(NavigationScreen.Details.route)
+                        },
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(all = 15.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(all = 15.dp)
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Surface(
-                                modifier = Modifier
-                                    .padding(end = 30.dp)
-                                    .height(40.dp)
-                                    .width(40.dp)
-                                    .clip(CircleShape),
-                                color = Color.Blue.copy(.3f),
+                        Surface(
+                            modifier = Modifier
+                                .padding(end = 30.dp)
+                                .height(40.dp)
+                                .width(40.dp)
+                                .clip(CircleShape),
+                            color = Color.Blue.copy(.3f),
 
-                                ) {
-                                Column(
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Text(
-                                        text = "M",
-                                        style = MaterialTheme.typography.h2.copy(fontSize = 20.sp)
-                                    )
-                                }
-                            }
-                            Column() {
-                                Text(text = "848484884")
-                                Row(verticalAlignment = Alignment.Bottom) {
-                                    Icon(
-                                        imageVector = Icons.Default.CallMade,
-                                        contentDescription = "icons",
-                                        tint = Color.LightGray
-                                    )
-                                    Text(
-                                        text = "Mobile",
-                                        style = MaterialTheme.typography.subtitle2
-                                    )
-                                }
-
+                            ) {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "M",
+                                    style = MaterialTheme.typography.h2.copy(fontSize = 20.sp)
+                                )
                             }
                         }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "il y a 1h",
-                                style = MaterialTheme.typography.subtitle2,
-                                modifier = Modifier.padding(end = 15.dp)
-                            )
-                            Icon(
-                                imageVector = Icons.Default.Info,
-                                contentDescription = "info",
-                                tint = Color.LightGray
-                            )
+                        Column() {
+                            Text(text = "848484884")
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Icon(
+                                    imageVector = Icons.Default.CallMade,
+                                    contentDescription = "icons",
+                                    tint = Color.LightGray
+                                )
+                                Text(
+                                    text = "Mobile",
+                                    style = MaterialTheme.typography.subtitle2
+                                )
+                            }
+
                         }
                     }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(all = 15.dp)
+                    ) {
+                        Text(
+                            text = "il y a 1h",
+                            style = MaterialTheme.typography.subtitle2,
+                            modifier = Modifier.padding(end = 15.dp)
+                        )
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "info",
+                            tint = Color.LightGray
+                        )
+                    }
                 }
-
             }
         }
     }
