@@ -17,10 +17,10 @@ fun GlobalNavigation() {
             RecentCallComposable(navController)
         }
         composable(NavigationScreen.Create.route) {
-            CreateContact()
+            CreateContact(navController)
         }
         composable(NavigationScreen.Details.route) {
-            DetailScreen()
+            DetailScreen(navController)
         }
     }
 }

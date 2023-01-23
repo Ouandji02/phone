@@ -19,15 +19,15 @@ val Typography = Typography(
     defaultFontFamily = Poppins,
     h1 = TextStyle(
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 20.sp
+        fontSize = 16.sp
     ),
     h2 = TextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 16.sp
+        fontSize = 14.sp
     ),
     h4 = TextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp
+        fontSize = 13.sp
     ),
     h3 = TextStyle(
         fontWeight = FontWeight.Bold,
