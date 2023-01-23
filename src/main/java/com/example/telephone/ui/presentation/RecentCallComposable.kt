@@ -1,13 +1,16 @@
 package com.example.telephone.ui.presentation
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -17,14 +20,21 @@ import com.example.telephone.ui.Routes.BottomGraph
 import com.example.telephone.ui.presentation.Model.BottomBarScreen
 import com.example.telephone.ui.presentation.Model.NavigationScreen
 import com.example.telephone.ui.presentation.composables.BottomNavigationComposable
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RecentCallComposable(navController: NavController) {
+    val conf = LocalConfiguration.current
+    val coroutineScope = rememberCoroutineScope()
+    val modalSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmStateChange = { it != ModalBottomSheetValue.HalfExpanded },
+    )
     val scaffoldState = rememberScaffoldState()
     val navControllerBottom = rememberNavController()
     val backstack by navControllerBottom.currentBackStackEntryAsState()
     val verificationRoute = backstack?.destination?.route == BottomBarScreen.Home.route
-    println(backstack?.destination?.route)
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -61,11 +71,18 @@ fun RecentCallComposable(navController: NavController) {
                     }
                 }
             }
-
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {
+            if(!modalSheetState.isVisible) FloatingActionButton(onClick = {
                 if (!verificationRoute) navController.navigate(NavigationScreen.Create.route)
+                else {
+                    coroutineScope.launch {
+                        if (modalSheetState.isVisible)
+                            modalSheetState.hide()
+                        else
+                            modalSheetState.animateTo(ModalBottomSheetValue.Expanded)
+                    }
+                }
             }, backgroundColor = MaterialTheme.colors.primary) {
                 if (verificationRoute) Icon(
                     imageVector = Icons.Default.Apps,
@@ -83,6 +100,27 @@ fun RecentCallComposable(navController: NavController) {
             BottomNavigationComposable(navControllerBottom)
         }
     ) {
-        BottomGraph(navControllerBottom, navController)
+        ModalBottomSheetLayout(
+            sheetState = modalSheetState,
+            sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+            sheetContent = {
+                Column(
+                    modifier =  Modifier.height(conf.screenHeightDp.dp / 2)
+                ) {
+                    //...
+
+                    Button(
+                        onClick = {
+                            coroutineScope.launch { modalSheetState.hide() }
+                        }
+                    ) {
+                        Text(text = "Hide Sheet")
+                    }
+                }
+            }
+        ){
+            BottomGraph(navControllerBottom, navController)
+        }
+
     }
 }
