@@ -20,6 +20,7 @@ import com.example.telephone.ui.Routes.BottomGraph
 import com.example.telephone.ui.presentation.Model.BottomBarScreen
 import com.example.telephone.ui.presentation.Model.NavigationScreen
 import com.example.telephone.ui.presentation.composables.BottomNavigationComposable
+import com.example.telephone.ui.presentation.composables.PhoneNumberComposable
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -102,20 +103,22 @@ fun RecentCallComposable(navController: NavController) {
     ) {
         ModalBottomSheetLayout(
             sheetState = modalSheetState,
-            sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
             sheetContent = {
                 Column(
-                    modifier =  Modifier.height(conf.screenHeightDp.dp / 2)
+                    modifier =  Modifier.height((2*conf.screenHeightDp).dp / 3)
                 ) {
                     //...
-
-                    Button(
-                        onClick = {
-                            coroutineScope.launch { modalSheetState.hide() }
-                        }
-                    ) {
-                        Text(text = "Hide Sheet")
+                    Column( modifier = Modifier.fillMaxWidth()) {
+                        /*Button(
+                            onClick = {
+                                coroutineScope.launch { modalSheetState.hide() }
+                            }
+                        ) {
+                            Text(text = "Hide Sheet")
+                        }*/
+                        PhoneNumberComposable()
                     }
+
                 }
             }
         ){
