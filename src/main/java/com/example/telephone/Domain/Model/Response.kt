@@ -1,7 +1,7 @@
 package com.example.telephone.Domain.Model
 
-sealed class Response(){
-    object Loading : Response()
-    class Success(data: String) : Response()
-    class Nothing() : Response()
+sealed class Response<out T>(){
+    object Loading : Response<Nothing>()
+    class Success<out T>(data: T) : Response<T>()
+    class Error(message : String) : Response<Nothing>()
 }
