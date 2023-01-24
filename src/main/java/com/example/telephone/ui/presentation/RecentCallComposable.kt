@@ -105,7 +105,7 @@ fun RecentCallComposable(navController: NavController) {
             sheetState = modalSheetState,
             sheetContent = {
                 Column(
-                    modifier =  Modifier.height((2*conf.screenHeightDp).dp / 3)
+                    //modifier =  Modifier.padding(bottom = 40.dp)
                 ) {
                     //...
                     Column( modifier = Modifier.fillMaxWidth()) {
@@ -116,7 +116,7 @@ fun RecentCallComposable(navController: NavController) {
                         ) {
                             Text(text = "Hide Sheet")
                         }*/
-                        PhoneNumberComposable()
+                        PhoneNumberComposable(modalSheetState)
                     }
 
                 }
