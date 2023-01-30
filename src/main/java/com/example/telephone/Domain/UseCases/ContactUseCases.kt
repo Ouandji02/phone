@@ -8,4 +8,5 @@ class ContactUseCases(private val contactRepository: ContactRepository) {
     suspend fun getAllContact() = contactRepository.getAllContact()
     suspend fun getOneContact(phone : String) = contactRepository.getOneContact(phone)
     suspend fun updateContact(contact: Contact) = contactRepository.update(contact)
+    suspend fun delete(contact: Contact) = contactRepository.deleteContact(contact)
 }

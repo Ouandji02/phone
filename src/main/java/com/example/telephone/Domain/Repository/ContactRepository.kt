@@ -9,4 +9,5 @@ interface ContactRepository {
     fun getAllContact() : Flow<Response<List<Contact>>>
     fun getOneContact(phone : String) : Flow<Response<Contact>>
     fun update(contact: Contact) : Flow<Response<Void?>>
+    fun deleteContact(contact: Contact) : Flow<Response<Void?>>
 }

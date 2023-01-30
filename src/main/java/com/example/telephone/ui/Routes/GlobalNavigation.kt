@@ -1,9 +1,11 @@
 package com.example.telephone.ui.Routes
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.telephone.ui.presentation.Model.NavigationScreen
 import com.example.telephone.ui.presentation.RecentCallComposable
 import com.example.telephone.ui.presentation.screens.CreateContact
@@ -19,8 +21,14 @@ fun GlobalNavigation() {
         composable(NavigationScreen.Create.route) {
             CreateContact(navController)
         }
-        composable(NavigationScreen.Details.route) {
-            DetailScreen(navController)
+        composable(NavigationScreen.Details.route +"/{phone}", arguments =  listOf(
+            navArgument("phone"){
+                type = NavType.StringType
+                nullable = false
+            }
+        )) { entry ->
+            entry.arguments?.getString("phone")?.
+                let {  DetailScreen(navController, it) }
         }
     }
 }

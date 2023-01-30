@@ -10,7 +10,7 @@ import com.example.telephone.Domain.Model.Response
 import com.example.telephone.Domain.UseCases.ContactUseCases
 import kotlinx.coroutines.launch
 
-class ContactViewModel(private val contactUseCases: ContactUseCases):ViewModel() {
+class ContactViewModel(private val contactUseCases: ContactUseCases) : ViewModel() {
     var addContactResponse by mutableStateOf<Response<Void?>>(Response.Success(null))
         private set
     var getAllContactResponse by mutableStateOf<Response<List<Contact>>>(Response.Loading)
@@ -19,28 +19,40 @@ class ContactViewModel(private val contactUseCases: ContactUseCases):ViewModel()
         private set
     var updateResponse by mutableStateOf<Response<Void?>>(Response.Success(null))
         private set
+    var deleteContactResponse by mutableStateOf<Response<Void?>>(Response.Success(null))
+        private set
 
     fun addContact(contact: Contact) = viewModelScope.launch {
-        contactUseCases.addContact(contact).collect{
+        contactUseCases.addContact(contact).collect {
             addContactResponse = it
         }
     }
 
-    fun getAllContact() = viewModelScope.launch {
-        contactUseCases.getAllContact().collect{
+    init {
+        getAllContact()
+    }
+
+    private fun getAllContact() = viewModelScope.launch {
+        contactUseCases.getAllContact().collect {
             getAllContactResponse = it
         }
     }
 
-    fun getOneContact(phone : String) = viewModelScope.launch {
-        contactUseCases.getOneContact(phone).collect{
+    fun getOneContact(phone: String) = viewModelScope.launch {
+        contactUseCases.getOneContact(phone).collect {
             getContactResponse = it
         }
     }
 
     fun updateContact(contact: Contact) = viewModelScope.launch {
-        contactUseCases.updateContact(contact).collect{
+        contactUseCases.updateContact(contact).collect {
             updateResponse = it
         }
     }
- }
+
+    fun deleteContact(contact: Contact) = viewModelScope.launch {
+        contactUseCases.delete(contact).collect {
+            deleteContactResponse = it
+        }
+    }
+}

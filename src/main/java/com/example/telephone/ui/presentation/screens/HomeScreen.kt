@@ -41,7 +41,6 @@ fun HomeScreen(navController: NavController, navControllerGlobal: NavController)
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                navControllerGlobal.navigate(NavigationScreen.Details.route)
                             },
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,

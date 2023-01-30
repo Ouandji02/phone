@@ -39,7 +39,7 @@ fun RecentCallComposable(navController: NavController) {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            TopAppBar(elevation = 0.dp) {
+           /* TopAppBar(elevation = 0.dp) {
                 Surface {
                     Row(
                         horizontalArrangement = Arrangement.End,
@@ -71,7 +71,7 @@ fun RecentCallComposable(navController: NavController) {
                         )
                     }
                 }
-            }
+            }*/
         },
         floatingActionButton = {
             if(!modalSheetState.isVisible) FloatingActionButton(onClick = {

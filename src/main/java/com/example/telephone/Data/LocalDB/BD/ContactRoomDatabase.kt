@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import com.example.telephone.Data.LocalDB.DAO.ContactDao
 import com.example.telephone.Domain.Model.Contact
 
-@Database(entities = [(Contact::class)], version = 1, exportSchema = false)
+@Database(entities = [Contact::class], version = 1)
 abstract class ContactRoomDatabase : RoomDatabase() {
-    abstract fun contactDao() : ContactDao
-    companion object {
+    abstract fun getContactDao() : ContactDao
+    /*companion object {
         @Volatile
         private var INSTANCE: ContactRoomDatabase? = null
 
@@ -23,7 +23,7 @@ abstract class ContactRoomDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         ContactRoomDatabase::class.java,
-                        "employee_database"
+                        "contact_database"
                     ).fallbackToDestructiveMigration()
                         .build()
 
@@ -32,5 +32,5 @@ abstract class ContactRoomDatabase : RoomDatabase() {
                 return instance
             }
         }
-    }
+    }*/
 }

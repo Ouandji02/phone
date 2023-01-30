@@ -1,5 +1,6 @@
 package com.example.telephone.ui.presentation.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -10,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -18,16 +21,25 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.telephone.Domain.Model.Contact
+import com.example.telephone.Domain.Model.Response
+import com.example.telephone.ui.presentation.ContactViewModel
+import com.example.telephone.ui.presentation.Model.NavigationScreen
 import com.example.telephone.ui.presentation.composables.FieldComposable
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CreateContact(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
-    var firstLetter by remember { mutableStateOf("") }
     var name by remember { mutableStateOf(TextFieldValue("")) }
     var surname by remember { mutableStateOf(TextFieldValue("")) }
     var phone by remember { mutableStateOf(TextFieldValue("")) }
     var email by remember { mutableStateOf(TextFieldValue("")) }
+    val contactViewModel = getViewModel<ContactViewModel>()
+    val context = LocalContext.current
+    var loading by remember {
+         mutableStateOf(false)
+    }
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -48,7 +60,35 @@ fun CreateContact(navController: NavController) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                       contactViewModel.addContact(
+                            Contact(
+                                name = name.text,
+                                surname = surname.text,
+                                phone = phone.text,
+                                email = email.text,
+                            )
+                        )
+                        println(contactViewModel.addContactResponse)
+                        loading = true
+                        if(loading) when(val response = contactViewModel.addContactResponse){
+                            is Response.Error -> {
+                                Toast.makeText(
+                                    context,
+                                    "une erreur s'est produite",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                loading = false
+                            }
+                            is Response.Success -> {
+                                Toast.makeText(context, "Contact enregistre", Toast.LENGTH_LONG)
+                                    .show()
+                                navController.navigate(NavigationScreen.Home.route)
+                                loading = false
+                            }
+                            else -> {Toast.makeText(context,"Else", Toast.LENGTH_LONG).show()}
+                        }
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = "icons",
